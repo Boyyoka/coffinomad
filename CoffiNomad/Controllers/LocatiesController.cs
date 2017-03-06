@@ -15,7 +15,7 @@ namespace CoffiNomad.Controllers
 {
     public class LocatiesController : ApiController
     {
-        private Coffi db = new Coffi();
+        private CoffiContext db = new CoffiContext();
 
         // GET: api/Locaties
         public IQueryable<Locatie> GetLocaties()

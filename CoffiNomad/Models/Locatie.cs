@@ -18,8 +18,8 @@ namespace CoffiNomad
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LocatieID { get; set; }
 
-        [MaxLength(50)]
-        public byte[] Stad { get; set; }
+        [StringLength(50)]
+        public string Stad { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Caffee> Caffees { get; set; }

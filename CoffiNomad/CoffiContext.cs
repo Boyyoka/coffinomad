@@ -5,10 +5,10 @@ namespace CoffiNomad
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Coffi : DbContext
+    public partial class CoffiContext : DbContext
     {
-        public Coffi()
-            : base("name=CoffiConnection")
+        public CoffiContext()
+            : base("name=CoffiContext")
         {
         }
 
@@ -19,6 +19,14 @@ namespace CoffiNomad
         {
             modelBuilder.Entity<Caffee>()
                 .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Caffee>()
+                .Property(e => e.Straat)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Locatie>()
+                .Property(e => e.Stad)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Locatie>()

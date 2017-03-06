@@ -15,7 +15,7 @@ namespace CoffiNomad.Controllers
 {
     public class CaffeesController : ApiController
     {
-        private Coffi db = new Coffi();
+        private CoffiContext db = new CoffiContext();
 
         // GET: api/Caffees
         public IQueryable<Caffee> GetCaffees()

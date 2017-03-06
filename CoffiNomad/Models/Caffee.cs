@@ -15,8 +15,8 @@ namespace CoffiNomad
         [StringLength(50)]
         public string Name { get; set; }
 
-        [MaxLength(50)]
-        public byte[] Straat { get; set; }
+        [StringLength(50)]
+        public string Straat { get; set; }
 
         public int LocatieID { get; set; }
 

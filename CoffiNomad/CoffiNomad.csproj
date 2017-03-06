@@ -127,10 +127,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\Caffee.cs" />
+    <Compile Include="CoffiContext.cs" />
     <Compile Include="Controllers\CaffeesController.cs" />
     <Compile Include="Controllers\LocatiesController.cs" />
-    <Compile Include="Models\Caffee.cs" />
-    <Compile Include="Coffi.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
