@@ -43,3 +43,6 @@ d:\users\cam geronimo\documents\visual studio 2015\Projects\CoffiNomad\CoffiNoma
 d:\users\cam geronimo\documents\visual studio 2015\Projects\CoffiNomad\CoffiNomad\obj\Release\CoffiNomad.csprojResolveAssemblyReference.cache
 d:\users\cam geronimo\documents\visual studio 2015\Projects\CoffiNomad\CoffiNomad\obj\Release\CoffiNomad.dll
 d:\users\cam geronimo\documents\visual studio 2015\Projects\CoffiNomad\CoffiNomad\obj\Release\CoffiNomad.pdb
+D:\Users\Cam Geronimo\Documents\Visual Studio 2015\Projects\CoffiNomad\CoffiNomad\bin\System.Web.Cors.dll
+D:\Users\Cam Geronimo\Documents\Visual Studio 2015\Projects\CoffiNomad\CoffiNomad\bin\System.Web.Http.Cors.dll
+D:\Users\Cam Geronimo\Documents\Visual Studio 2015\Projects\CoffiNomad\CoffiNomad\bin\System.Web.Http.Cors.xml

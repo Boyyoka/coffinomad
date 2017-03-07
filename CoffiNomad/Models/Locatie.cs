@@ -15,13 +15,12 @@ namespace CoffiNomad
             Caffees = new HashSet<Caffee>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LocatieID { get; set; }
 
         [StringLength(50)]
         public string Stad { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Caffee> Caffees { get; set; }
+        public ICollection<Caffee> Caffees { get; set; }
     }
 }

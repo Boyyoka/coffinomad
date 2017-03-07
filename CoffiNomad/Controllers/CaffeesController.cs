@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CoffiNomad;
+using System.Web.Http.Cors;
 
 namespace CoffiNomad.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CaffeesController : ApiController
     {
         private CoffiContext db = new CoffiContext();
@@ -28,6 +30,7 @@ namespace CoffiNomad.Controllers
         public async Task<IHttpActionResult> GetCaffee(int id)
         {
             Caffee caffee = await db.Caffees.FindAsync(id);
+        
             if (caffee == null)
             {
                 return NotFound();
@@ -117,6 +120,48 @@ namespace CoffiNomad.Controllers
             return Ok(caffee);
         }
 
+        // GET: api/caffees/1/1/
+        [Route("api/caffees/{locatieID:int}/{categoryID:int}")]
+        public IEnumerable<Caffee> GetCaffees(int locatieID, int categoryID)
+        {
+            /*
+where caffee.caffeeid in (select b.caffeeid from beoordeling b where b.categoryid like 2)
+and c.locatieid like 2*/
+
+            var caffees = from caffee in db.Caffees
+                          where db.Beoordeling
+                          .Select(be => be.CaffeeID)
+                          .Contains(caffee.CaffeeID)
+                          select caffee;
+
+            caffees = from caffee in caffees
+                      where db.Beoordeling
+                      .Select(be => be.CategoryID)
+                      .Contains(categoryID)
+                      select caffee;
+
+            caffees = from caffee in caffees
+                      where caffee.LocatieID == locatieID
+                      select caffee;
+
+           
+            foreach (var c in caffees)
+            {
+                var beoordelingen = from beoordeling in db.Beoordeling
+                where beoordeling.CategoryID == categoryID
+                where beoordeling.CaffeeID == c.CaffeeID
+                select beoordeling;
+                c.Beoordelingen = beoordelingen.ToList();
+               
+            }
+
+            //caffees.Include(c => c.Beoordelingen).
+
+            return caffees;
+        }
+
+      
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -130,5 +175,7 @@ namespace CoffiNomad.Controllers
         {
             return db.Caffees.Count(e => e.CaffeeID == id) > 0;
         }
+
+
     }
 }

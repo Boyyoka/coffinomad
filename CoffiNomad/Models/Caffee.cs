@@ -9,7 +9,6 @@ namespace CoffiNomad
     [Table("Caffee")]
     public partial class Caffee
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CaffeeID { get; set; }
 
         [StringLength(50)]
@@ -20,6 +19,8 @@ namespace CoffiNomad
 
         public int LocatieID { get; set; }
 
-        public virtual Locatie Locatie { get; set; }
+        public Locatie Locatie { get; set; }
+
+        public ICollection<Beoordeling> Beoordelingen { get; set; }
     }
 }

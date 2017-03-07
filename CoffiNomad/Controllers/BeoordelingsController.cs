@@ -15,49 +15,44 @@ using System.Web.Http.Cors;
 namespace CoffiNomad.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class LocatiesController : ApiController
+    public class BeoordelingsController : ApiController
     {
         private CoffiContext db = new CoffiContext();
 
-        // GET: api/Locaties
-        public IQueryable<Locatie> GetLocaties()
+        // GET: api/Beoordelings
+        public IQueryable<Beoordeling> GetBeoordeling()
         {
-            return db.Locaties;
+            return db.Beoordeling;
         }
 
-        // GET: api/Locaties/5
-        [ResponseType(typeof(Locatie))]
-        public async Task<IHttpActionResult> GetLocatie(int id)
+        // GET: api/Beoordelings/5
+        [ResponseType(typeof(Beoordeling))]
+        public async Task<IHttpActionResult> GetBeoordeling(int id)
         {
-            Locatie locatie = await db.Locaties.FindAsync(id);
-
-            db.Entry(locatie)
-                .Collection(l => l.Caffees)
-                .Load();
-
-            if (locatie == null)
+            Beoordeling beoordeling = await db.Beoordeling.FindAsync(id);
+            if (beoordeling == null)
             {
                 return NotFound();
             }
 
-            return Ok(locatie);
+            return Ok(beoordeling);
         }
 
-        // PUT: api/Locaties/5
+        // PUT: api/Beoordelings/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutLocatie(int id, Locatie locatie)
+        public async Task<IHttpActionResult> PutBeoordeling(int id, Beoordeling beoordeling)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != locatie.LocatieID)
+            if (id != beoordeling.CategoryID)
             {
                 return BadRequest();
             }
 
-            db.Entry(locatie).State = EntityState.Modified;
+            db.Entry(beoordeling).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +60,7 @@ namespace CoffiNomad.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LocatieExists(id))
+                if (!BeoordelingExists(id))
                 {
                     return NotFound();
                 }
@@ -78,16 +73,16 @@ namespace CoffiNomad.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Locaties
-        [ResponseType(typeof(Locatie))]
-        public async Task<IHttpActionResult> PostLocatie(Locatie locatie)
+        // POST: api/Beoordelings
+        [ResponseType(typeof(Beoordeling))]
+        public async Task<IHttpActionResult> PostBeoordeling(Beoordeling beoordeling)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Locaties.Add(locatie);
+            db.Beoordeling.Add(beoordeling);
 
             try
             {
@@ -95,7 +90,7 @@ namespace CoffiNomad.Controllers
             }
             catch (DbUpdateException)
             {
-                if (LocatieExists(locatie.LocatieID))
+                if (BeoordelingExists(beoordeling.CategoryID))
                 {
                     return Conflict();
                 }
@@ -105,23 +100,23 @@ namespace CoffiNomad.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = locatie.LocatieID }, locatie);
+            return CreatedAtRoute("DefaultApi", new { id = beoordeling.CategoryID }, beoordeling);
         }
 
-        // DELETE: api/Locaties/5
-        [ResponseType(typeof(Locatie))]
-        public async Task<IHttpActionResult> DeleteLocatie(int id)
+        // DELETE: api/Beoordelings/5
+        [ResponseType(typeof(Beoordeling))]
+        public async Task<IHttpActionResult> DeleteBeoordeling(int id)
         {
-            Locatie locatie = await db.Locaties.FindAsync(id);
-            if (locatie == null)
+            Beoordeling beoordeling = await db.Beoordeling.FindAsync(id);
+            if (beoordeling == null)
             {
                 return NotFound();
             }
 
-            db.Locaties.Remove(locatie);
+            db.Beoordeling.Remove(beoordeling);
             await db.SaveChangesAsync();
 
-            return Ok(locatie);
+            return Ok(beoordeling);
         }
 
         protected override void Dispose(bool disposing)
@@ -133,9 +128,9 @@ namespace CoffiNomad.Controllers
             base.Dispose(disposing);
         }
 
-        private bool LocatieExists(int id)
+        private bool BeoordelingExists(int id)
         {
-            return db.Locaties.Count(e => e.LocatieID == id) > 0;
+            return db.Beoordeling.Count(e => e.CategoryID == id) > 0;
         }
     }
 }

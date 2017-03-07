@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="CoffiConnection-Web.config Connection String" description="CoffiConnection Connection String used in web.config by the application to access the database." defaultValue="data source=coffinomad.database.windows.net;initial catalog=coffi_db;user id=coffiboy@coffinomad;password=c0ffin0m@d;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\Users\\Cam\ Geronimo\\Documents\\Visual\ Studio\ 2015\\Projects\\CoffiNomad\\CoffiNomad\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CoffiConnection']/@connectionString" />
-  </parameter>
   <parameter name="CoffiContext-Web.config Connection String" description="CoffiContext Connection String used in web.config by the application to access the database." defaultValue="data source=coffinomad.database.windows.net;initial catalog=coffi_db;user id=coffiboy@coffinomad;password=c0ffin0m@d;multipleactiveresultsets=True;application name=EntityFramework" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="D:\\Users\\Cam\ Geronimo\\Documents\\Visual\ Studio\ 2015\\Projects\\CoffiNomad\\CoffiNomad\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CoffiContext']/@connectionString" />
   </parameter>
