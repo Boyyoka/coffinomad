@@ -124,15 +124,6 @@ namespace CoffiNomad.Controllers
             return Ok(locatie);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool LocatieExists(int id)
         {
             return db.Locaties.Count(e => e.LocatieID == id) > 0;

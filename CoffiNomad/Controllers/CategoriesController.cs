@@ -104,15 +104,6 @@ namespace CoffiNomad.Controllers
             return Ok(category);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool CategoryExists(int id)
         {
             return db.Categories.Count(e => e.CategoryID == id) > 0;

@@ -21,6 +21,6 @@ namespace CoffiNomad
         public string Stad { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<Caffee> Caffees { get; set; }
+        public virtual ICollection<Caffee> Caffees { get; set; }
     }
 }

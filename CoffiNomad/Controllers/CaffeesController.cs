@@ -41,6 +41,51 @@ namespace CoffiNomad.Controllers
 
         // PUT: api/Caffees/5
         [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutCaffee(int caffeeId, string naam, string straat, int locatieID)
+        {
+            Caffee caffee = db.Caffees.Find(caffeeId);
+            Locatie locatie = db.Locaties.Find(locatieID);
+
+            if (locatie != null && caffee != null)
+            {
+                if (!string.IsNullOrEmpty(naam) && !string.IsNullOrEmpty(straat))
+                {
+                    caffee.Locatie = locatie;
+                    caffee.Name = naam;
+                    caffee.Straat = straat;
+
+                    db.Entry(caffee).State = EntityState.Modified;
+                    try
+                    {
+                        await db.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!CaffeeExists(caffeeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }    
+
+            }
+            else {
+                return BadRequest();
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // PUT: api/Caffees/5
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCaffee(int id, Caffee caffee)
         {
             if (!ModelState.IsValid)
@@ -76,6 +121,51 @@ namespace CoffiNomad.Controllers
 
         // POST: api/Caffees
         [ResponseType(typeof(Caffee))]
+        public async Task<IHttpActionResult> PostCaffee(string naam, string straat, int locatieID)
+        {
+            Caffee caffee = null;
+            Locatie locatie = db.Locaties.Find(locatieID);
+            if (locatie != null)
+            {
+                if (!string.IsNullOrEmpty(naam) && !string.IsNullOrEmpty(straat))
+                {
+
+                    caffee = new Caffee
+                    {
+                        Name = naam,
+                        Straat = straat,
+                        LocatieID = locatieID,
+                        Locatie = locatie
+                    };
+
+                    db.Caffees.Add(caffee);
+                    try
+                    {
+                        await db.SaveChangesAsync();
+                    }
+                    catch (DbUpdateException)
+                    {
+                        if (CaffeeExists(caffee.CaffeeID))
+                        {
+                            return Conflict();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+         
+            return CreatedAtRoute("DefaultApi", new { id = caffee.CaffeeID }, caffee);
+        }
+
+        // POST: api/Caffees
+        [ResponseType(typeof(Caffee))]
         public async Task<IHttpActionResult> PostCaffee(Caffee caffee)
         {
             if (!ModelState.IsValid)
@@ -100,7 +190,6 @@ namespace CoffiNomad.Controllers
                     throw;
                 }
             }
-
             return CreatedAtRoute("DefaultApi", new { id = caffee.CaffeeID }, caffee);
         }
 
@@ -124,9 +213,6 @@ namespace CoffiNomad.Controllers
         [Route("api/caffees/{locatieID:int}/{categoryID:int}")]
         public IEnumerable<Caffee> GetCaffees(int locatieID, int categoryID)
         {
-            /*
-where caffee.caffeeid in (select b.caffeeid from beoordeling b where b.categoryid like 2)
-and c.locatieid like 2*/
 
             var caffees = from caffee in db.Caffees
                           where db.Beoordeling
@@ -143,7 +229,6 @@ and c.locatieid like 2*/
             caffees = from caffee in caffees
                       where caffee.LocatieID == locatieID
                       select caffee;
-
            
             foreach (var c in caffees)
             {
@@ -155,20 +240,7 @@ and c.locatieid like 2*/
                
             }
 
-            //caffees.Include(c => c.Beoordelingen).
-
             return caffees;
-        }
-
-      
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool CaffeeExists(int id)

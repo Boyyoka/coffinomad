@@ -27,5 +27,7 @@ namespace CoffiNomad
         public Category Category { get; set; }
 
         public Caffee Caffee { get; set; }
+
+
     }
 }
